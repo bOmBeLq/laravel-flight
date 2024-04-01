@@ -1,0 +1,14 @@
+version: "3.8"
+
+networks:
+  default:
+    name: laravel-task.local
+services:
+  app:
+    build: .
+    command: tail -f /dev/null
+    volumes:
+      - .:/app
+    working_dir: /app
+    ports:
+      - "5543:80"
