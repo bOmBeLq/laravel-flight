@@ -7,8 +7,14 @@ services:
   app:
     build: .
     command: tail -f /dev/null
+    environment:
+        - PHP_IDE_CONFIG=serverName=laravel-flight
     volumes:
       - .:/app
+      - .docker/app/bin/phpx:/bin/phpx
+      - .docker/app/conf/php.ini:/usr/local/etc/php/conf.d/999-docker-dev.ini
     working_dir: /app
     ports:
       - "5543:80"
+    extra_hosts:
+        - "host.docker.internal:host-gateway"

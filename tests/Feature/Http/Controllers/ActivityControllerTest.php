@@ -1,0 +1,60 @@
+<?php
+
+namespace Tests\Feature\Http\Controllers;
+
+use App\Models\Activity;
+use App\Models\Enum\ActivityType;
+use App\Service\RosterImport\RosterImporter;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Spatie\Snapshots\MatchesSnapshots;
+use Tests\TestCase;
+
+class ActivityControllerTest extends TestCase
+{
+    use MatchesSnapshots;
+    use RefreshDatabase;
+
+    const TEST_ROSTER_FILE = __DIR__ . '/_resources/roster.html';
+
+    public function testList()
+    {
+        $this->travelTo(new Carbon('2022-01-14 08:00'));
+
+        /** @var $rosterImporter RosterImporter */
+        $rosterImporter = $this->app->get(RosterImporter::class);
+        $rosterImporter->import(self::TEST_ROSTER_FILE, 'html');
+
+
+        $testRequest = function(array $query) {
+            $response = $this->call('GET', '/api/activities', $query);
+            $response->assertStatus(200);
+            $this->assertMatchesJsonSnapshot($response->json());
+        };
+
+        $testRequest([]);
+        $testRequest(['dateTimeFrom' => '2022-01-11 15:00:00', 'dateTimeTo' => '2022-01-13 12:00:00']);
+        $testRequest(['period' => 'nextWeek']);
+        $testRequest(['period' => 'nextWeek', 'type' => ActivityType::FLIGHT->value]);
+        $testRequest(['period' => 'nextWeek', 'type' => ActivityType::STAND_BY->value]);
+        $testRequest(['locationFrom' => 'KRP', 'locationTo' => 'CPH']);
+    }
+
+    public function testUploadRoster(): void
+    {
+        $this->travelTo(new Carbon('2022-01-14 08:00'));
+        Storage::fake('uploads');
+
+        $response = $this->postJson('/api/activities/upload-roster', [
+            'roster' => UploadedFile::fake()->createWithContent('roster.html', file_get_contents(__DIR__ . '/_resources/roster.html')),
+            'type' => 'html'
+        ]);
+        $response->assertStatus(200);
+
+        $activities = Activity::all()->collect();
+
+        $this->assertMatchesJsonSnapshot($activities->toArray());
+    }
+}

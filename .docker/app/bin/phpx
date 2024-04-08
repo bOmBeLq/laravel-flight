@@ -1,0 +1,2 @@
+#!/bin/ash
+php -d  xdebug.start_with_request=yes -d xdebug.discover_client_host=0 "$@"

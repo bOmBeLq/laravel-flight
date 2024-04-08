@@ -1,0 +1,71 @@
+{
+    "current_page": 1,
+    "data": [
+        {
+            "id": 7,
+            "created_at": "2022-01-14T08:00:00.000000Z",
+            "updated_at": "2022-01-14T08:00:00.000000Z",
+            "activity": "DX83",
+            "type": "FLIGHT",
+            "check_in_time": null,
+            "check_out_time": null,
+            "time_from": "2022-01-11T15:20:00.000000Z",
+            "time_to": "2022-01-11T16:10:00.000000Z",
+            "location_from": "KRP",
+            "location_to": "CPH"
+        },
+        {
+            "id": 8,
+            "created_at": "2022-01-14T08:00:00.000000Z",
+            "updated_at": "2022-01-14T08:00:00.000000Z",
+            "activity": "DX82",
+            "type": "FLIGHT",
+            "check_in_time": null,
+            "check_out_time": "2022-01-11 17:55:00",
+            "time_from": "2022-01-11T16:45:00.000000Z",
+            "time_to": "2022-01-11T17:35:00.000000Z",
+            "location_from": "CPH",
+            "location_to": "KRP"
+        },
+        {
+            "id": 9,
+            "created_at": "2022-01-14T08:00:00.000000Z",
+            "updated_at": "2022-01-14T08:00:00.000000Z",
+            "activity": "OFF",
+            "type": "DAY_OFF",
+            "check_in_time": null,
+            "check_out_time": null,
+            "time_from": "2022-01-12T23:00:00.000000Z",
+            "time_to": "2022-01-12T23:00:00.000000Z",
+            "location_from": "KRP",
+            "location_to": "KRP"
+        }
+    ],
+    "first_page_url": "http:\/\/localhost\/api\/activities?page=1",
+    "from": 1,
+    "last_page": 1,
+    "last_page_url": "http:\/\/localhost\/api\/activities?page=1",
+    "links": [
+        {
+            "url": null,
+            "label": "&laquo; Previous",
+            "active": false
+        },
+        {
+            "url": "http:\/\/localhost\/api\/activities?page=1",
+            "label": "1",
+            "active": true
+        },
+        {
+            "url": null,
+            "label": "Next &raquo;",
+            "active": false
+        }
+    ],
+    "next_page_url": null,
+    "path": "http:\/\/localhost\/api\/activities",
+    "per_page": 50,
+    "prev_page_url": null,
+    "to": 3,
+    "total": 3
+}
