@@ -57,6 +57,21 @@ class ActivityControllerTest extends TestCase
 
         $this->assertMatchesJsonSnapshot($activities->toArray());
     }
+    public function testUploadRosterCrossMonth(): void
+    {
+        $this->travelTo(new Carbon('2022-01-14 08:00'));
+        Storage::fake('uploads');
+
+        $response = $this->postJson('/api/activities/upload-roster', [
+            'roster' => UploadedFile::fake()->createWithContent('cross_month_roster.html', file_get_contents(__DIR__ . '/_resources/cross_month_roster.html')),
+            'type' => 'html'
+        ]);
+        $response->assertStatus(200);
+
+        $activities = Activity::all()->collect();
+
+        $this->assertMatchesJsonSnapshot($activities->toArray());
+    }
 
     public function testUploadRosterMissingValues()
     {

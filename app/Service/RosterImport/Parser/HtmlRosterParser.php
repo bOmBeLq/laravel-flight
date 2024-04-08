@@ -17,12 +17,13 @@ class HtmlRosterParser implements RosterParserInterface
         $tableData = $htmlParser->parseTable('table.activityTableStyle');
 
         $baseDate = $period['from'];
+        $periodTo = $period['to'];
         $lastDate = null;
-        return collect($tableData)->map(function (array $data) use (&$lastDate, $baseDate) {
+        return collect($tableData)->map(function (array $data) use (&$lastDate, $baseDate, $periodTo) {
             $day = (int) filter_var($data['Date'], FILTER_SANITIZE_NUMBER_INT);
             if ($day) {
                 if ($day == 1 && $lastDate) {
-                    $baseDate = $baseDate->modify('+1 month');
+                    $baseDate = $periodTo;
                 }
                 $date = $baseDate->setDate($baseDate->format('Y'), $baseDate->format('m'), $day);
             } else {
