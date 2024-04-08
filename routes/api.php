@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::controller(ActivityController::class)->group(function() {
+Route::controller(ActivityController::class)->group(function () {
     Route::post('/activities/upload-roster', 'uploadRoster');
     Route::get('/activities', 'list');
 });

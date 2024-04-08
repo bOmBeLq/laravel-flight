@@ -9,7 +9,6 @@ use App\Service\RosterImport\RosterImporter;
 
 class ActivityController extends Controller
 {
-
     public function list(ActivityListRequest $request)
     {
         return Activity::filterByRequest($request)->orderBy('timeFrom')->paginate(50);

@@ -6,7 +6,6 @@ use App\Models\Enum\ActivityType;
 
 class ParseResultRow
 {
-
     public function __construct(
         private readonly string $activity,
         private readonly ActivityType $type,
@@ -16,8 +15,7 @@ class ParseResultRow
         private readonly string $locationTo,
         private readonly \DateTimeImmutable $timeFrom,
         private readonly \DateTimeImmutable $timeTo,
-    )
-    {
+    ) {
     }
 
     public function getActivity(): string

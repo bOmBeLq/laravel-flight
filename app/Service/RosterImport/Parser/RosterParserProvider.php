@@ -6,7 +6,6 @@ use Psr\Container\ContainerInterface;
 
 class RosterParserProvider
 {
-
     /**
      * @var RosterParserInterface[]
      */

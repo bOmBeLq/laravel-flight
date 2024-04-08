@@ -2,7 +2,6 @@
 
 namespace App\Service\RosterImport\Parser;
 
-
 use Illuminate\Support\Collection;
 
 interface RosterParserInterface

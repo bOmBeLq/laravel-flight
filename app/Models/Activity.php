@@ -26,7 +26,7 @@ class Activity extends Model
         }
         if ($request->isPeriodNextWeek()) {
             $query->where('time_from', '>=', Carbon::parse('monday next week'));
-            $query->where('time_to', '<=', Carbon::parse('sunday next week')->setTime(23,59,59));
+            $query->where('time_to', '<=', Carbon::parse('sunday next week')->setTime(23, 59, 59));
         }
         if($request->getType()) {
             $query->where('type', '=', $request->getType());

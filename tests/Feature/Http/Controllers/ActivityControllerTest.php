@@ -17,7 +17,7 @@ class ActivityControllerTest extends TestCase
     use MatchesSnapshots;
     use RefreshDatabase;
 
-    const TEST_ROSTER_FILE = __DIR__ . '/_resources/roster.html';
+    public const TEST_ROSTER_FILE = __DIR__ . '/_resources/roster.html';
 
     public function testList()
     {
