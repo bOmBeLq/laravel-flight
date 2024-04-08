@@ -6,7 +6,7 @@ use App\Models\Enum\ActivityType;
 use App\Service\RosterImport\Parser\Helper\HtmlFileParser;
 use Illuminate\Support\Collection;
 
-class HtmlRosterRosterParser implements RosterParserInterface
+class HtmlRosterParser implements RosterParserInterface
 {
     public function parse(string $filePath): Collection
     {

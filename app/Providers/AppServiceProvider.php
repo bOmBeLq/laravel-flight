@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Service\RosterImport\Parser\HtmlRosterRosterParser;
+use App\Service\RosterImport\Parser\HtmlRosterParser;
 use App\Service\RosterImport\RosterImporter;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->when(RosterImporter::class)->needs('$parsers')->give(function (Application $app) {
             return [
-                $app->make(HtmlRosterRosterParser::class)
+                $app->make(HtmlRosterParser::class)
             ];
         });
     }
