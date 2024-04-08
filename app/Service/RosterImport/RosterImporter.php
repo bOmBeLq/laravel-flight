@@ -6,21 +6,19 @@ use App\Models\Activity;
 use App\Models\Enum\ActivityType;
 use App\Service\RosterImport\Parser\ParseResultRow;
 use App\Service\RosterImport\Parser\RosterParserInterface;
+use App\Service\RosterImport\Parser\RosterParserProvider;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 class RosterImporter
 {
-    /**
-     * @param RosterParserInterface[] $parsers
-     */
-    public function __construct(private readonly array $parsers)
+    public function __construct(private readonly RosterParserProvider $rosterParserProvider)
     {
     }
 
     public function import(string $file, string $type): void
     {
-        $rosterData = $this->getRosterData($file, $type);
+        $rosterData = $this->rosterParserProvider->getParserByType($type)->parse($file);
 
         $activities = $rosterData
             ->map(function (ParseResultRow $row) {
@@ -38,18 +36,5 @@ class RosterImporter
                 ];
             });
         Activity::insert($activities->toArray());
-    }
-
-    /**
-     * @return Collection<ParseResultRow>
-     */
-    private function getRosterData(string $file, string $type): Collection
-    {
-        foreach ($this->parsers as $parser) {
-            if ($parser->supports($type)) {
-                return $parser->parse($file);
-            }
-        }
-        throw new InvalidRosterException('Unsupported roster type ' . $type);
     }
 }

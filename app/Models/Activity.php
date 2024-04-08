@@ -18,24 +18,24 @@ class Activity extends Model
     public static function filterByRequest(ActivityListRequest $request): Builder
     {
         $query = Activity::query();
-        if ($request->dateTimeFrom) {
-            $query->where('time_from', '>=', $request->dateTimeFrom);
+        if ($request->getDateTimeFrom()) {
+            $query->where('time_from', '>=', $request->getDateTimeFrom());
         }
-        if ($request->dateTimeTo) {
-            $query->where('time_to', '<=', $request->dateTimeTo);
+        if ($request->getDateTimeTo()) {
+            $query->where('time_to', '<=', $request->getDateTimeTo());
         }
         if ($request->isPeriodNextWeek()) {
             $query->where('time_from', '>=', Carbon::parse('monday next week'));
             $query->where('time_to', '<=', Carbon::parse('sunday next week')->setTime(23,59,59));
         }
-        if($request->type) {
-            $query->where('type', '=', $request->type);
+        if($request->getType()) {
+            $query->where('type', '=', $request->getType());
         }
-        if($request->locationFrom) {
-            $query->where('location_from', '=', $request->locationFrom);
+        if($request->getLocationFrom()) {
+            $query->where('location_from', '=', $request->getLocationFrom());
         }
-        if($request->locationTo) {
-            $query->where('location_to', '=', $request->locationTo);
+        if($request->getLocationTo()) {
+            $query->where('location_to', '=', $request->getLocationTo());
         }
         return $query;
     }

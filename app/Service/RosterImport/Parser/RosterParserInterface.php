@@ -13,5 +13,5 @@ interface RosterParserInterface
      */
     public function parse(string $filePath): Collection;
 
-    public function supports(string $type): bool;
+    public static function getSupportedType(): string;
 }

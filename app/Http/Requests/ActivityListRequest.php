@@ -20,8 +20,32 @@ class ActivityListRequest extends FormRequest
         ];
     }
 
+
     public function isPeriodNextWeek(): bool
     {
         return $this->period === 'nextWeek';
+    }
+
+    public function getDateTimeFrom(): ?string
+    {
+        return $this->dateTimeFrom;
+    }
+
+    public function getDateTimeTo(): ?string
+    {
+        return $this->dateTimeTo;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+    public function getLocationFrom(): ?string
+    {
+        return $this->locationFrom;
+    }
+    public function getLocationTo(): ?string
+    {
+        return $this->locationTo;
     }
 }

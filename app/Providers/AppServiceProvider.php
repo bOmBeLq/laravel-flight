@@ -14,11 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->when(RosterImporter::class)->needs('$parsers')->give(function (Application $app) {
-            return [
-                $app->make(HtmlRosterParser::class)
-            ];
-        });
+
     }
 
     /**

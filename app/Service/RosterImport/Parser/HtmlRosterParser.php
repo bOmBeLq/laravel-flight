@@ -45,7 +45,7 @@ class HtmlRosterParser implements RosterParserInterface
 
     private function createTime(\DateTimeImmutable $date, $timeString): ?\DateTimeImmutable
     {
-        if(empty(trim($timeString, " \t\n\r\0\x0B\xC2\xA0"))) {
+        if (empty(trim($timeString, " \t\n\r\0\x0B\xC2\xA0"))) {
             return null;
         }
         $timeParts = str_split($timeString, 2);
@@ -83,8 +83,8 @@ class HtmlRosterParser implements RosterParserInterface
         return ActivityType::UNKNOWN;
     }
 
-    public function supports(string $type): bool
+    public static function getSupportedType(): string
     {
-        return $type === 'html';
+        return 'html';
     }
 }

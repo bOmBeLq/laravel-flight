@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ActivityListRequest;
+use App\Http\Requests\UploadRosterRequest;
 use App\Models\Activity;
 use App\Service\RosterImport\RosterImporter;
-use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 
 class ActivityController extends Controller
 {
@@ -17,16 +16,10 @@ class ActivityController extends Controller
     }
 
 
-    public function uploadRoster(Request $request, RosterImporter $importer)
+    public function uploadRoster(UploadRosterRequest $request, RosterImporter $importer)
     {
-        $validated = $request->validate([
-            'roster' => 'required',
-            'type' => 'required'
-        ]);
-        /** @var UploadedFile $roster */
-        $roster = $validated['roster'];
+        $importer->import($request->getRoster()->getPathname(), $request->getType());
 
-        $importer->import($roster->getPathname(), $validated['type']);
         return ['status' => 'success'];
     }
 }

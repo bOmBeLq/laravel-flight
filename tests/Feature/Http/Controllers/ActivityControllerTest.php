@@ -28,7 +28,7 @@ class ActivityControllerTest extends TestCase
         $rosterImporter->import(self::TEST_ROSTER_FILE, 'html');
 
 
-        $testRequest = function(array $query) {
+        $testRequest = function (array $query) {
             $response = $this->call('GET', '/api/activities', $query);
             $response->assertStatus(200);
             $this->assertMatchesJsonSnapshot($response->json());
@@ -56,5 +56,39 @@ class ActivityControllerTest extends TestCase
         $activities = Activity::all()->collect();
 
         $this->assertMatchesJsonSnapshot($activities->toArray());
+    }
+
+    public function testUploadRosterMissingValues()
+    {
+        $response = $this->postJson('/api/activities/upload-roster');
+        $response->assertStatus(422);
+        $this->assertEquals([
+            "message" => "The roster field is required. (and 1 more error)",
+            "errors" => [
+                "roster" => [
+                    "The roster field is required."
+                ],
+                "type" => [
+                    "The type field is required."
+                ]
+            ]
+        ], $response->json());
+    }
+
+    public function testUploadRosterInvalidValues()
+    {
+        $response = $this->postJson('/api/activities/upload-roster', ['type' => 'x']);
+        $response->assertStatus(422);
+        $this->assertEquals([
+            "message" => "The roster field is required. (and 1 more error)",
+            "errors" => [
+                "roster" => [
+                    "The roster field is required."
+                ],
+                "type" => [
+                    "Roster type x is not supported"
+                ]
+            ]
+        ], $response->json());
     }
 }
