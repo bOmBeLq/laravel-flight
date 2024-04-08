@@ -10,6 +10,7 @@ This repository is solution to one of recruitment assignments.
 - have docker and docker compose installed
 - run `bin/setup.sh`
 - to execute in container use `bin/docker.sh` or regular `docker` commands
+- `*not tested on mac and windows (you may need some extra steps)`
 
 ### Testing
 `bin/docker.sh vendor/bin/phpunit`
