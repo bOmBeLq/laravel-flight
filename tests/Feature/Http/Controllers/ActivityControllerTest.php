@@ -29,7 +29,7 @@ class ActivityControllerTest extends TestCase
 
 
         $testRequest = function (array $query) {
-            $response = $this->call('GET', '/api/activities', $query);
+            $response = $this->withHeaders(['Accept' => 'application/json'])->call('GET', '/api/activities', $query);
             $response->assertStatus(200);
             $this->assertMatchesJsonSnapshot($response->json());
         };
@@ -40,6 +40,20 @@ class ActivityControllerTest extends TestCase
         $testRequest(['period' => 'nextWeek', 'type' => ActivityType::FLIGHT->value]);
         $testRequest(['period' => 'nextWeek', 'type' => ActivityType::STAND_BY->value]);
         $testRequest(['locationFrom' => 'KRP', 'locationTo' => 'CPH']);
+    }
+
+    public function testListInvalid()
+    {
+        $response = $this->json('GET', '/api/activities', ['dateTimeFrom' => 'invalid']);
+        $response->assertStatus(422);
+        $this->assertEquals([
+            "message" => "The date time from field must match the format Y-m-d H:i:s.",
+            "errors" => [
+                "dateTimeFrom" => [
+                    "The date time from field must match the format Y-m-d H:i:s."
+                ],
+            ]
+        ], $response->json());
     }
 
     public function testUploadRoster(): void

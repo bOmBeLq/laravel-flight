@@ -1,0 +1,129 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Flight",
+        "version": "0.7"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:5543/",
+            "description": "Dev env"
+        }
+    ],
+    "paths": {
+        "/api/activities": {
+            "get": {
+                "tags": [
+                    "Activities"
+                ],
+                "operationId": "b86e3c0e8593bb3e2f715ad0c0ae13fb",
+                "parameters": [
+                    {
+                        "name": "dateTimeFrom",
+                        "in": "query",
+                        "schema": {
+                            "type": "dateTime",
+                            "format": "Y-m-d H:i:s",
+                            "example": "2022-01-14 08:00:00"
+                        }
+                    },
+                    {
+                        "name": "dateTimeTo",
+                        "in": "query",
+                        "schema": {
+                            "type": "dateTime",
+                            "format": "Y-m-d H:i:s",
+                            "example": "2022-01-20 08:00:00"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "DAY_OFF",
+                                "STAND_BY",
+                                "FLIGHT",
+                                "UNKNOWN"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "period",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "nextWeek"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "locationFrom",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "locationTo",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Activity list",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/activities/upload-roster": {
+            "post": {
+                "tags": [
+                    "Activities"
+                ],
+                "operationId": "e7387d9743f87064472430f588d455a2",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "roster": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "html"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
