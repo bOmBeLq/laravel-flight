@@ -1,0 +1,21 @@
+name: "Quality assurance"
+on:
+  push: ~
+
+jobs:
+  php-cs-fixer:
+    runs-on: ubuntu
+    steps:
+      - uses: actions/checkout@v4
+      - run:
+          docker compose build app
+          bin/setup.sh
+          bin/docker.sh vendor/bin/php-cs-fixer check .
+  tests:
+    runs-on: ubuntu
+    steps:
+      - uses: actions/checkout@v4
+      - run:
+          docker compose build app
+          bin/setup.sh
+          bin/docker.sh vendor/bin/phpunit
