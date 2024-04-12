@@ -1,4 +1,6 @@
 ## CAE Laravel Assignment
+![Quality Assurance](https://github.com/bOmBeLq/laravel-flight/actions/workflows/quality_assurance.yml/badge.svg)
+
 This repository is solution to one of recruitment assignments.
 ### Task details
 
