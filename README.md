@@ -23,3 +23,4 @@ This repository is solution to one of recruitment assignments.
 - I didn't define swagger response formats
 - I don't like the `period` filter but whole idea of "nextWeek" is odd. I wouldn't implement it in my API. Just use date from/to filters
 - Tests for invalid file are missing
+- I'm aware that quality assurance job should build image in one stage and then use it to run tests and cs fixer
