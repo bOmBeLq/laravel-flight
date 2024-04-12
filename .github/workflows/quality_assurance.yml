@@ -8,7 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          bin/setup-dev.sh
+          docker compose up -d
+          docker compose exec app composer install -n
           bin/docker.sh vendor/bin/php-cs-fixer check .
   tests:
     runs-on: ubuntu-latest
