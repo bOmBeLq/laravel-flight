@@ -4,7 +4,7 @@ on:
 
 jobs:
   php-cs-fixer:
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run:
@@ -12,7 +12,7 @@ jobs:
           bin/setup.sh
           bin/docker.sh vendor/bin/php-cs-fixer check .
   tests:
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run:
