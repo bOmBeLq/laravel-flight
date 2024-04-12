@@ -33,7 +33,7 @@ class ActivityController extends Controller
     #[OA\Post(
         path: "/api/activities/upload-roster",
         requestBody: new OA\RequestBody(
-           content: new OA\MediaType(
+            content: new OA\MediaType(
                 mediaType: "multipart/form-data",
                 schema: new OA\Schema(
                     properties: [
